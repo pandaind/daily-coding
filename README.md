@@ -1,2 +1,2 @@
 # daily-coding
-Coding Practice from Leetcode and GFG.
+Coding Practice from Leetcode.
