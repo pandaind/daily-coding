@@ -28,4 +28,18 @@ class Solution {
     
     return true;
 }
+   public boolean isPalindrome2(String s) {
+    Character[] chars = s.chars().mapToObj(c -> (char)c)
+                .map(Character::toLowerCase)
+                .filter(Character::isLetterOrDigit)
+                .toArray(Character[]::new);
+        
+        int j = chars.length-1;
+        for (int i = 0; i < j; i++, j--) {
+            if(chars[i] != chars[j])
+                return false;
+        }
+
+        return true;
+}
 }
