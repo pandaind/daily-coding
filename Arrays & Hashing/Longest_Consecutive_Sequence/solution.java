@@ -1,22 +1,36 @@
 class Solution {
-    public int longestConsecutive(int[] nums) {
-	    Arrays.sort(nums);
-	    nums = Arrays.stream(nums).distinct().toArray();
-	    List<List<Integer>> results = new ArrayList<>();
-	    List<Integer> res = new ArrayList<>();
-	    if(nums.length == 0) return 0;
-	    for (int i = 0; i < nums.length - 1; i++) {
-	      if (nums[i]+1 == nums[i+1]) {
-		res.add(nums[i]);
-	      } else {
-		res.add(nums[i]);
-		results.add(res);
-		res = new ArrayList<>();
-	      }
-	    }
-	    res.add(nums[nums.length - 1]);
-	    results.add(res);
+    public int longestConsecutiveSorted(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
+        int[] res = Arrays.stream(nums).boxed().sorted().distinct()
+                    .mapToInt(Integer::intValue).toArray();
+        int ls = 1;
+        int cs = 1;
+        for (int i = 0; i < res.length - 1; i++) {
+            cs = (res[i + 1] - res[i] == 1) ? cs + 1 : 1;
+            ls = Math.max(ls, cs);
+        }
 
-	    return results.stream().sorted((a, b) -> b.size() - a.size()).findFirst().orElse(new ArrayList<>()).size();
+        return ls;
+    }
+
+    public int longestConsecutive(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
+        var resSet = Arrays.stream(nums).boxed().collect(Collectors.toSet());
+        int ls = 1;
+        for (Integer num : resSet) {
+            if (!resSet.contains(num - 1)) {
+                int cs = 1;
+                while (resSet.contains(num + 1)) {
+                    cs++;
+                    num++;
+                }
+                ls = Math.max(ls, cs);
+            }
+        }
+        return ls;
     }
 }
