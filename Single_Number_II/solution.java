@@ -1,18 +1,8 @@
 class Solution {
     public int singleNumber(int[] nums) {
-        int finder = 0;
-        
-        for(int i=0; i < nums.length;i++){
-            finder^=nums[i];
-        }
-
-        return finder;
-    }
-
-    public int singleNumber2(int[] nums) {
         Set<Integer> set = new HashSet<>();
-        int sumOfSet = 0;
-        int sumOfNums = 0;
+        double sumOfSet = 0; // double to handle int overflow
+        double sumOfNums = 0; // double to handle int overflow
 
         for (int num : nums) {
             if (!set.contains(num)) {
@@ -22,6 +12,6 @@ class Solution {
             sumOfNums += num;
         }
 
-        return 2 * sumOfSet - sumOfNums;
+        return (int) ((3 * sumOfSet - sumOfNums)/2);
     }
 }
