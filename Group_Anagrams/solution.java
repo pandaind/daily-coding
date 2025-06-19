@@ -6,11 +6,9 @@ class Solution {
         Map<String, List<String>> ansMap = new HashMap<>();
 
         for (String str : strs) {
-            int[] count = new int[26];
-            for (char c : str.toCharArray()) {
-                count[c - 'a']++;
-            }
-            String key = Arrays.toString(count);
+            char[] strArray = str.toCharArray();
+            Arrays.sort(strArray);
+            String key = new String(strArray);
             ansMap.putIfAbsent(key, new ArrayList<>());
             ansMap.get(key).add(str);
         }
